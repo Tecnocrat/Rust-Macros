@@ -1,8 +1,9 @@
 use std::cell::RefCell;
 use std::time::Instant;
-use std::fs::{self, File, OpenOptions};
+use std::fs::{self, OpenOptions}; // Removed File
 use std::io::{Write, BufWriter};
 use std::path::Path;
+
 thread_local!(static FOO: RefCell<u32> = RefCell::new(1));
 
 // Associated item in a trait

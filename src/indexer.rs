@@ -1,5 +1,6 @@
 use std::fs::{self, OpenOptions};
-use std::io::{Write, BufWriter};
+use std::io::Write;
+use std::process::Command;
 use serde_json::json;
 use crate::logger::get_git_commit_hash;
 
@@ -9,7 +10,7 @@ pub fn update_workspace_index() {
     for path in paths {
         let path = path.unwrap().path();
         if path.is_file() {
-            files.push(json!({ "name": path.display() }));
+            files.push(json!({ "name": path.to_string_lossy() }));
         }
     }
     let metadata = json!({
@@ -27,4 +28,14 @@ pub fn update_workspace_index() {
         .expect("Failed to open index file");
 
     writeln!(file, "{}", metadata).expect("Failed to write workspace index");
+}
+
+pub fn update_workspace_index_with_python() {
+    let status = Command::new("python")
+        .args(&["python/update_metadata.py"])
+        .status()
+        .expect("Failed to run Python indexer");
+    if !status.success() {
+        eprintln!("Python indexer failed");
+    }
 }

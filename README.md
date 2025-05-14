@@ -1,5 +1,6 @@
 # Rust-Macros
 
+**Cross-language automation, semantic introspection, and AI-ready metadata for Rust/Python codebases.**  
 This repository is a playground and automation hub for Rust macro experimentation, code instrumentation, execution time measurement, and workspace introspection. It is designed for both AI and human consumption, with robust logging, GitHub automation, and semantic indexing.
 
 ---
@@ -10,24 +11,24 @@ This repository is a playground and automation hub for Rust macro experimentatio
 Macros/
 │
 ├── src/
-│   ├── main.rs          # Rust entry point, orchestrates macro demos and logging.
-│   ├── macros.rs        # Macro implementations and usage examples.
-│   ├── logger.rs        # Logging utilities (JSON, exec times, metadata).
-│   ├── automation.rs    # GitHub automation (auto-commit, push).
-│   ├── indexer.rs       # Workspace index and metadata generation.
+│   ├── main.rs          # Rust orchestrator: macros, logging, Python integration, automation.
+│   ├── macros.rs        # Macro demos and utilities.
+│   ├── logger.rs        # Logging (plain, JSON, commit hash).
+│   ├── automation.rs    # Git auto-commit/push.
+│   ├── indexer.rs       # Calls Python for advanced indexing.
 │
 ├── python/
-│   ├── main.py          # Python automation, semantic analysis, and orchestration.
-│   ├── update_metadata.py # Updates workspace index and manifest.
-│   ├── codebot_api.py   # Flask API for workspace index and manifest.
+│   ├── main.py                  # Python: semantic analysis, workspace index, git log, helpers.
+│   ├── update_metadata.py       # Python: runs index+manifest generation.
+│   ├── codebot_api.py           # Python: Flask API for index/manifest.
 │
-├── exec_times.log       # Log of execution times per run.
-├── workspace_index.json # JSON metadata for VSCode indexing.
-├── codebot.json         # Manifest for AI tools.
-├── git_log_db.json      # Git commit/semantic history.
-├── README.md            # Repository documentation.
-├── Cargo.toml           # Rust project manifest.
-├── .gitignore           # Ignore build, logs, and Python cache.
+├── exec_times.log       # Plain execution time log.
+├── workspace_index.json # JSON index (Python or Rust generated).
+├── codebot.json         # AI manifest (Python generated).
+├── git_log_db.json      # Git commit/semantic history (Python generated).
+├── README.md            # Dense, up-to-date documentation.
+├── Cargo.toml           # Rust manifest.
+├── .gitignore           # Ignore build, logs, Python cache.
 │
 └── .github/
     └── workflows/
@@ -57,16 +58,62 @@ Macros/
 
 ---
 
+## Runtime Flow
+
+1. **Rust (`main.rs`):**
+   - Runs macro demos, logs execution time (plain + JSON).
+   - Calls Python (`python/update_metadata.py`) for:
+     - Recursive workspace index with semantic summaries.
+     - Manifest generation for AI tools.
+   - Optionally triggers auto-commit/push.
+2. **Python:**
+   - `main.py`: Semantic analysis, recursive index, git log, helpers.
+   - `update_metadata.py`: Runs index + manifest generation.
+   - `codebot_api.py`: Flask API for index/manifest.
+3. **Artifacts:**
+   - `workspace_index.json`: All files, sizes, timestamps, semantic summaries.
+   - `codebot.json`: Project, platform, language, file summaries, AI metadata.
+   - `git_log_db.json`: Commit/semantic history.
+
+---
+
+## Key Functions
+
+- **Rust**
+  - `macros::run_macro_demos()`: Macro playground.
+  - `logger::log_exec_time_plain(f64)`: Execution time log.
+  - `logger::log_execution_time(f64)`: Execution time + commit hash (JSON).
+  - `indexer::update_workspace_index_with_python()`: Calls Python for deep index/manifest.
+  - `automation::auto_commit_and_push()`: Git add/commit/push.
+- **Python**
+  - `generate_recursive_workspace_index_with_summaries()`: Recursively indexes all files, adds semantic summaries for Python files.
+  - `generate_codebot_manifest()`: Generates dense AI manifest.
+  - `save_git_log_database(repo_path, file_path)`: Updates git/semantic history.
+  - `auto_commit_and_push()`: Git automation.
+  - `codebot_api.py`: Flask API for index/manifest.
+
+---
+
+## Context Tracking & Metadata
+
+- All logs and indexes include commit hash, timestamp, and semantic summaries.
+- Manifest and index are always up-to-date after each run.
+- Python and Rust workflows are fully integrated; Rust can trigger all Python metadata updates.
+- All metadata is AI/LLM-ready for downstream automation.
+
+---
+
 ## Usage
 
-- **Rust:**  
-  `cargo run` (from project root)
-- **Python:**  
-  `python/python/main.py` or `python/python/update_metadata.py`
-- **API:**  
-  `python/python/codebot_api.py` (Flask, serves `/index` and `/manifest`)
+- **Run full workflow:**  
+  `cargo run` (from project root)  
+  → Runs Rust macros, logs, triggers Python index/manifest, (optionally) auto-commits.
+- **Update metadata only:**  
+  `python python/update_metadata.py`
+- **Serve API:**  
+  `python python/codebot_api.py`
 - **CI/CD:**  
-  Automated on push and daily via GitHub Actions.
+  Automated on push and schedule via GitHub Actions.
 
 ---
 
@@ -79,6 +126,14 @@ Macros/
 
 ---
 
+## Extensibility
+
+- Add new semantic analyzers in Python for other languages.
+- Extend Rust orchestrator to trigger more Python or external tools.
+- All metadata is AI/LLM-ready for downstream automation.
+
+---
+
 ## Future Directions
 
 - Expand macro demonstrations and semantic analysis.
@@ -88,4 +143,4 @@ Macros/
 
 ---
 
-*This README is the single source of truth for the project. Keeping it updated ensures seamless onboarding and automation for all contributors and AI agents.*
+*This README is the canonical, dense reference for all contributors and AI agents. All context, metadata, and automation flows are described herein. Keeping it updated ensures seamless onboarding and automation for all contributors and AI agents.*

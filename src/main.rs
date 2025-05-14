@@ -23,7 +23,7 @@ fn main() {
     logger::log_execution_time(duration.as_secs_f64());
 
     // Generate workspace index after execution
-    indexer::update_workspace_index();
+    indexer::update_workspace_index_with_python();
 
     // Optionally, auto-commit and push (uncomment to enable)
     // automation::auto_commit_and_push();
