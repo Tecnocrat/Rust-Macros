@@ -186,6 +186,9 @@ def generate_codebot_manifest(index_path="workspace_index.json", manifest_path="
     print(f"Codebot manifest saved to {manifest_path}")
 
 def auto_commit_and_push():
+    # Always set git user identity before committing
+    subprocess.run(['git', 'config', '--global', 'user.name', 'tecnocrat'])
+    subprocess.run(['git', 'config', '--global', 'user.email', 'jesussard@gmail.com'])
     timestamp = datetime.now().isoformat()
     msg = f"Auto: log, index, and manifest update [{timestamp}]"
     subprocess.run("git add .", shell=True)
