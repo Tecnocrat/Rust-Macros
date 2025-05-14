@@ -1,4 +1,16 @@
 {
+  "project_name": "Rust-Macros",
+  "description": "AI-ready Rust and Python macro playground with workspace indexing and semantic introspection.",
+  "language": [
+    "Rust",
+    "Python"
+  ],
+  "platform": "Windows",
+  "main_files": [
+    "macros.rs",
+    "main.py"
+  ],
+  "index_file": "workspace_index.json",
   "files": [
     {
       "name": ".gitignore",
@@ -447,5 +459,6 @@
       "last_modified": "2025-05-15T00:10:19.173315",
       "summary": null
     }
-  ]
+  ],
+  "generated_at": "2025-05-15T00:11:59.644443"
 }

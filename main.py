@@ -161,6 +161,30 @@ def summarize_python_file(filepath):
     except Exception as e:
         return {"error": str(e)}
 
+def generate_codebot_manifest(index_path="workspace_index.json", manifest_path="codebot.json"):
+    """
+    Generates a codebot.json manifest describing the project for AI tools.
+    """
+    import platform
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            index = json.load(f)
+    except Exception as e:
+        index = {"files": [], "error": str(e)}
+    manifest = {
+        "project_name": "Rust-Macros",
+        "description": "AI-ready Rust and Python macro playground with workspace indexing and semantic introspection.",
+        "language": ["Rust", "Python"],
+        "platform": platform.system(),
+        "main_files": ["macros.rs", "main.py"],
+        "index_file": index_path,
+        "files": index.get("files", []),
+        "generated_at": datetime.now().isoformat()
+    }
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+    print(f"Codebot manifest saved to {manifest_path}")
+
 if __name__ == "__main__":
     repo_path = r"C:\Users\jesus\projects\macros"
     file_path = "macros.rs"
