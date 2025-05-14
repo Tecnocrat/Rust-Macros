@@ -24,10 +24,7 @@ macro_rules! time_execution {
     };
 }
 
-fn main() {
-    // Start the universal clock
-    let start = Instant::now();
-
+pub fn run_macro_demos() {
     // Expression
     let numbers = vec![1, 2, 3];
 
@@ -51,6 +48,13 @@ fn main() {
     // Simulate some work
     let sum: i32 = numbers.iter().sum();
     println!("Sum: {}", sum);
+}
+
+fn main() {
+    // Start the universal clock
+    let start = Instant::now();
+
+    run_macro_demos();
 
     // End the universal clock and print elapsed time
     let duration = start.elapsed();
