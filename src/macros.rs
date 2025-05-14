@@ -13,6 +13,17 @@ trait T {
     const_maker! {i32, 7}
 }
 
+#[macro_export]
+macro_rules! time_execution {
+    ($fn_call:expr) => {
+        let start = std::time::Instant::now();
+        let result = $fn_call;
+        let duration = start.elapsed();
+        println!("Execution took: {:?}", duration);
+        result
+    };
+}
+
 fn main() {
     // Start the universal clock
     let start = Instant::now();

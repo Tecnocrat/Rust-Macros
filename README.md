@@ -9,9 +9,20 @@ This repository is a playground and training ground for experimenting with Rust 
 ```
 Macros/
 │
-├── macros.rs        # Main Rust source file, all logic and macros live here
-├── exec_times.log   # Appended log of execution times for each run (auto-generated)
-└── README.md        # This file, always up-to-date with project state
+├── src/                
+│   ├── macros.rs        # Core Rust logic, macro implementations, all code centralized.
+│   ├── automation.rs    # GitHub automation (auto-commit, push, indexing).
+│   ├── logger.rs        # Logging module (JSON, execution times, metadata tracking).
+│   ├── indexer.rs       # VSCode workspace index enhancement.
+│   ├── main.rs          # Entry point, calls macros & logs execution.
+│
+├── exec_times.log       # Log of execution times per run.
+├── workspace_index.json # JSON metadata for VSCode indexing.
+├── README.md            # Repository documentation.
+│
+└── .github/             
+    ├── workflows/ci.yml # GitHub Actions for CI/CD & automated analysis.
+    ├── metadata.yml     # Maintains Git commit history and execution metrics.
 ```
 
 ---
@@ -107,3 +118,4 @@ This file is the single source of truth for the project state.
 ---
 
 *This README is designed for both AI and human consumption. Keeping it updated ensures seamless automation and onboarding for future contributors and AI agents.*
+# test

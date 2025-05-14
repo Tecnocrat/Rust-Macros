@@ -1,0 +1,23 @@
+name: Rust-Macros Automation
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+
+jobs:
+  log_and_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Rust Macros Execution
+        run: cargo run
+
+      - name: Auto-Commit Updated Logs
+        run: |
+          git add workspace_index.json exec_times.log
+          git commit -m "Auto: logging & indexing update"
+          git push

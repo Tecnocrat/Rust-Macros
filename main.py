@@ -185,9 +185,17 @@ def generate_codebot_manifest(index_path="workspace_index.json", manifest_path="
         json.dump(manifest, f, indent=2)
     print(f"Codebot manifest saved to {manifest_path}")
 
+def auto_commit_and_push():
+    timestamp = datetime.now().isoformat()
+    msg = f"Auto: log, index, and manifest update [{timestamp}]"
+    subprocess.run("git add .", shell=True)
+    subprocess.run(f'git commit -m "{msg}"', shell=True)
+    subprocess.run("git push", shell=True)
+
 if __name__ == "__main__":
     repo_path = r"C:\Users\jesus\projects\macros"
     file_path = "macros.rs"
     save_git_log_database(repo_path, file_path)
     print("\nGit history graph:")
     print(get_git_history_analysis())
+    auto_commit_and_push()
