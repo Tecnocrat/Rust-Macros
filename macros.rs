@@ -1,7 +1,8 @@
 use std::cell::RefCell;
 use std::time::Instant;
-use std::fs::OpenOptions;
-use std::io::Write;
+use std::fs::{self, File, OpenOptions};
+use std::io::{Write, BufWriter};
+use std::path::Path;
 thread_local!(static FOO: RefCell<u32> = RefCell::new(1));
 
 // Associated item in a trait
@@ -51,4 +52,30 @@ fn main() {
         .open("exec_times.log")
         .expect("Unable to open log file");
     writeln!(file, "{:.6}", duration.as_secs_f64()).expect("Unable to write to log file");
+
+    // Generate workspace index after execution
+    generate_workspace_index();
+}
+
+fn generate_workspace_index() {
+    let paths = fs::read_dir(".").unwrap();
+    let mut index = BufWriter::new(
+        OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open("workspace_index.json")
+            .unwrap(),
+    );
+    writeln!(index, "{{\n  \"files\": [").unwrap();
+    let mut first = true;
+    for path in paths {
+        let path = path.unwrap().path();
+        if path.is_file() {
+            if !first { writeln!(index, ",").unwrap(); }
+            write!(index, "    {{ \"name\": \"{}\" }}", path.display()).unwrap();
+            first = false;
+        }
+    }
+    writeln!(index, "\n  ]\n}}").unwrap();
 }
