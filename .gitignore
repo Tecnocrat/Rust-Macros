@@ -1,0 +1,13 @@
+# .gitignore
+# Rust
+target/
+*.exe
+*.pdb
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs and indexes
+*.log
+workspace_index.json
