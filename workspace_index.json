@@ -1,11 +1,13 @@
 {
   "files": [
+    { "name": ".\.gitignore" },
     { "name": ".\exec_times.log" },
+    { "name": ".\git_log_db.json" },
     { "name": ".\macros.exe" },
     { "name": ".\macros.pdb" },
     { "name": ".\macros.rs" },
+    { "name": ".\main.py" },
     { "name": ".\README.md" },
-    { "name": ".\workspace.index.rs" },
     { "name": ".\workspace_index.json" }
   ]
 }
