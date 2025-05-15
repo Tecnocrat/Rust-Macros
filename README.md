@@ -103,17 +103,20 @@ Macros/
 
 ---
 
-## Usage
+## Quickstart
 
-- **Run full workflow:**  
-  `cargo run` (from project root)  
-  → Runs Rust macros, logs, triggers Python index/manifest, (optionally) auto-commits.
-- **Update metadata only:**  
-  `python python/update_metadata.py`
-- **Serve API:**  
-  `python python/codebot_api.py`
-- **CI/CD:**  
-  Automated on push and schedule via GitHub Actions.
+1. **Run full workflow:**  
+   `cargo run`  
+   (Triggers Rust macros, logging, Python indexing, and manifest generation.)
+
+2. **Update metadata only:**  
+   `python python/update_metadata.py`
+
+3. **Serve API:**  
+   `python python/codebot_api.py`
+
+4. **CI/CD:**  
+   Automated on push and schedule via GitHub Actions.
 
 ---
 
